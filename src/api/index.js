@@ -30,12 +30,12 @@ export function submitCodeToApi(editor) {
         source_code: code,
         stdin: stdin
     })
-    console.log(body);
+    console.log(body, process.env.API_HOST);
     return fetch("https://judge0.p.rapidapi.com/submissions", {
         "method": "POST",
         "headers": {
-            "x-rapidapi-host": "judge0.p.rapidapi.com",
-            "x-rapidapi-key": "f2d9e2e450msh008515b612b833cp1d38f5jsn0f034b44b7d3",
+            "x-rapidapi-host": process.env.REACT_APP_API_HOST,
+            "x-rapidapi-key": process.env.REACT_APP_API_KEY,
             "content-type": "application/json",
             "accept": "application/json"
         },
@@ -46,8 +46,8 @@ export function checkStatusFromApi(token) {
     return fetch(`https://judge0.p.rapidapi.com/submissions/${token}`, {
         "method": "GET",
         "headers": {
-            "x-rapidapi-host": "judge0.p.rapidapi.com",
-            "x-rapidapi-key": "f2d9e2e450msh008515b612b833cp1d38f5jsn0f034b44b7d3"
+            "x-rapidapi-host": process.env.REACT_APP_API_HOST,
+            "x-rapidapi-key": process.env.REACT_APP_API_KEY
         }
     })
 }
