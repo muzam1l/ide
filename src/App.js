@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Main from './comps/main'
+import Sidebar from './comps/sidebar'
+import './styles/main.scss'
+
+import { Container, Row, Col } from 'react-bootstrap'
+
+class App extends React.Component {
+  render() {
+    return (
+      <Container id="app" fluid>
+        <Row>
+          <Col lg={8} sm={12}>
+            <Main />
+          </Col>
+          <Col className="py-2" lg={4}>
+            <Sidebar />
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 }
 
 export default App;
