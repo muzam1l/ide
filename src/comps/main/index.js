@@ -2,7 +2,7 @@ import React from 'react'
 import { Nav, Dropdown, Button } from 'react-bootstrap'
 import MonacoEditor from 'react-monaco-editor';
 import { connect } from 'react-redux'
-import { changeCode, changeLang } from '../../store/actions'
+import { changeCode, changeLang, submitCode } from '../../store/actions'
 import languages from '../../api/languages.json'
 
 class Main extends React.Component {
@@ -41,6 +41,26 @@ class Main extends React.Component {
     }
     editorDidMount(editor, monaco) {
         editor.focus();
+        editor.addAction({
+            id: 'COMMAND_RUN',
+            label: 'Run code',
+            keybindings: [
+                monaco.KeyCode.F5,
+            ],
+            precondition: null,
+            keybindingContext: null,
+            contextMenuGroupId: 'navigation',
+            contextMenuOrder: 1,
+            run: (ed) => {
+                if (ed.getValue() === '') {
+                    alert('Type some code to run')
+                    return
+                }
+                let { submitCode, editor: editorState } = this.props;
+                submitCode(editorState)
+                return null;
+            }
+        })
     }
     render() {
         const code = this.state.code;
@@ -74,7 +94,7 @@ class Main extends React.Component {
                     </Dropdown>
                     <Button
                         onClick={this.toggleTheme.bind(this)}
-                        variant={this.state.editorTheme === 'dark' ? 'dark' : 'dark'} >
+                        variant={'dark'} >
                         {this.state.editorTheme}</Button>
                 </Nav>
                 <MonacoEditor
@@ -86,14 +106,17 @@ class Main extends React.Component {
                     value={code}
                     options={options}
                     onChange={this.onEditorChange.bind(this)}
-                    editorDidMount={this.editorDidMount}
+                    editorDidMount={this.editorDidMount.bind(this)}
                 />
                 {/* Footer */}
             </>
         )
     }
 }
+const mapStateToProps = (state) => {
+    return state
+}
 export default connect(
-    null,
-    { changeCode, changeLang }
+    mapStateToProps,
+    { changeCode, changeLang, submitCode }
 )(Main)

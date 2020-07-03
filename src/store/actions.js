@@ -44,6 +44,8 @@ export function requestError(error) {
     return { type: REQUEST_ERROR, error }
 }
 export function submitCode(editor) {
+    if (editor.code.trim() === '')
+        return
     console.log('submitting code...')
     return (dispatch) => {
         dispatch(requestInit())

@@ -45,7 +45,7 @@ class Sidebar extends React.Component {
                 <fieldset disabled={disabled}>
                     <Form onSubmit={this.handleSubmit.bind(this)} className="w-100">
                         <Form.Group className="mb-1" controlId="stdin">
-                            <Form.Label><strong>Input (stdin)</strong></Form.Label>
+                            <Form.Label><strong className="text-white">Input (stdin)</strong></Form.Label>
                             <Form.Control onChange={this.handleStdin.bind(this)} name="stdin" as="textarea" rows="10" className="bg-dark border-secondary text-white" />
                         </Form.Group>
                         <Button className="ml-1" variant="danger" type="submit">Run</Button>
